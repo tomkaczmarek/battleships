@@ -10,19 +10,19 @@ namespace BattleShipsLibraryTest
     public class UnitTest1
     {
 
-        private IGameMaker MakeMakers()
+        private IAreaMaker MakeMakers()
         {
-            return new GameMaker();
+            return new AreaMaker();
         }
 
         [Test]
-        public void CreateBattleField_AllFieldsCountEquals_81()
+        public void CreateBattleField_AllFieldsCountEquals_121()
         {
-            IGameMaker maker = MakeMakers();
+            IAreaMaker maker = MakeMakers();
 
             BattleArea area = maker.CreateBattleArea();
 
-            Assert.AreEqual(81, area.BattleFields.Length);
+            Assert.AreEqual(121, area.BattleFields.Length);
         }
     }
 }

@@ -9,11 +9,15 @@ namespace BattleShipsLibrary.Fields
 {
     public class BattleField
     {
-        public ShipBase Ship { get; set; }
+        public bool IsShip { get; set; }
+        public bool IsNearPointShip { get; set; }
+        public bool IsBound { get; set; }
 
-        public BattleField(ShipBase ship)
+        public BattleField(bool ship)
         {
-            Ship = ship;
+            IsShip = ship;
         }
+
+
     }
 }

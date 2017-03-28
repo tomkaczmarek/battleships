@@ -8,5 +8,6 @@ namespace BattleShipsLibrary.Utils
 {
     public abstract class ShipBase
     {
+        public bool IsNearPointShip { get; set; }
     }
 }

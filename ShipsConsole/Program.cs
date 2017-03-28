@@ -11,21 +11,31 @@ namespace ShipsConsole
     {
         static void Main(string[] args)
         {
-            IGameMaker gameMaker = new GameMaker();
+            IAreaMaker gameMaker = new AreaMaker();
             var area = gameMaker.CreateBattleArea();
+            IShipMaker shipMaker = new ShipMaker();
+            shipMaker.CreateBattleAreaWithShip(area);
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 11; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 11; j++)
                 {
-                    if(area.BattleFields[i,j].Ship != null)
+                    if(area.BattleFields[i,j].IsBound)
                     {
-                        Console.Write('X');
+                        Console.Write('*');
                     }
                     else
                     {
-                        Console.Write('-');
+                        if (!area.BattleFields[i, j].IsShip)
+                        {
+                            Console.Write('-');
+                        }
+                        else
+                        {
+                            Console.Write('X');
+                        }
                     }
+                    
                 }
                 Console.WriteLine();
             }

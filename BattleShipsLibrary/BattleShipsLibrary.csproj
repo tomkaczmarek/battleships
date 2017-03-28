@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Makers\GameMaker.cs" />
-    <Compile Include="Makers\IGameMaker.cs" />
+    <Compile Include="Makers\AreaMaker.cs" />
+    <Compile Include="Makers\IAreaMaker.cs" />
+    <Compile Include="Makers\IShipMaker.cs" />
+    <Compile Include="Makers\ShipMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fields\BattleField.cs" />
     <Compile Include="Utils\BattleArea.cs" />

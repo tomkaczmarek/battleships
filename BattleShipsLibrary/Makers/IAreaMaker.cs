@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BattleShipsLibrary.Makers
 {
-    public interface IGameMaker
+    public interface IAreaMaker
     {
         BattleArea CreateBattleArea();
     }
