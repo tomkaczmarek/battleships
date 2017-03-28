@@ -10,19 +10,19 @@ namespace BattleShipsLibrary.Makers
 {
     public class GameMaker : IGameMaker
     {
-        BattleField[,] IGameMaker.CreateBattleArea()
+        BattleArea IGameMaker.CreateBattleArea()
         {
-            BattleField[,] battlearea = new BattleField[9,9];
+            BattleArea area = new BattleArea(9,9);
 
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    battlearea[i, j] = new BattleField(null);
+                    area.BattleFields[i, j] = new BattleField(null);
                 }
             }
 
-            return battlearea;
+            return area;
         }
     }
 }

@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using BattleShipsLibrary.Makers;
 using BattleShipsLibrary.Fields;
+using BattleShipsLibrary.Utils;
 
 namespace BattleShipsLibraryTest
 {
@@ -19,9 +20,9 @@ namespace BattleShipsLibraryTest
         {
             IGameMaker maker = MakeMakers();
 
-            BattleField[,] fields = maker.CreateBattleArea();
+            BattleArea area = maker.CreateBattleArea();
 
-            Assert.AreEqual(81, fields.Length);
+            Assert.AreEqual(81, area.BattleFields.Length);
         }
     }
 }

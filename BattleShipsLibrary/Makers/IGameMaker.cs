@@ -1,4 +1,5 @@
 ﻿using BattleShipsLibrary.Fields;
+using BattleShipsLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace BattleShipsLibrary.Makers
 {
     public interface IGameMaker
     {
-        BattleField[,] CreateBattleArea();
+        BattleArea CreateBattleArea();
     }
 }
