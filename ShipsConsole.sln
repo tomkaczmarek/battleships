@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipsConsole", "ShipsConsol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShipsLibrary", "BattleShipsLibrary\BattleShipsLibrary.csproj", "{AB747208-A903-4549-9F6F-1EC198B50B6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShipsLibraryTest", "BattleShipsLibraryTest\BattleShipsLibraryTest.csproj", "{6E6C7C5C-244E-482B-BB5F-C99AEBDFBA8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AB747208-A903-4549-9F6F-1EC198B50B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB747208-A903-4549-9F6F-1EC198B50B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB747208-A903-4549-9F6F-1EC198B50B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E6C7C5C-244E-482B-BB5F-C99AEBDFBA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E6C7C5C-244E-482B-BB5F-C99AEBDFBA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E6C7C5C-244E-482B-BB5F-C99AEBDFBA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E6C7C5C-244E-482B-BB5F-C99AEBDFBA8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
