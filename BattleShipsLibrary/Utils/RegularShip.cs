@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BattleShipsLibrary.Fields
+namespace BattleShipsLibrary.Utils
 {
-    public abstract class BattleFieldBase
+    public class RegularShip : ShipBase
     {
-
     }
 }
