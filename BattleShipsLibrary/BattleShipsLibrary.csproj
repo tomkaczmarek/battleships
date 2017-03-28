@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fields\BattleShipField.cs" />
     <Compile Include="Makers\IGameMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Fields\BattleFieldBase.cs" />
     <Compile Include="Utils\ShipBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
