@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BattleShipsLibrary.Utils;
+using System.Drawing;
 
 namespace BattleShipsLibrary.Makers
 {
@@ -13,11 +14,11 @@ namespace BattleShipsLibrary.Makers
         {
             //TODO make DI
             LinkedList<RegularShip> ships = new LinkedList<RegularShip>();
-            //for (int i = 5; i > 0; i--)
-            //{
-            //    ships.AddFirst(new RegularShip(i));
-            //}
-            ships.AddFirst(new RegularShip(5));
+            for (int i = 5; i > 0; i--)
+            {
+                ships.AddLast(new RegularShip(i));
+            }
+            //ships.AddFirst(new RegularShip(5));
             do
             {
                 Random random = new Random();
@@ -25,29 +26,41 @@ namespace BattleShipsLibrary.Makers
                 int iArea, jArea;
                 do
                 {
-                    isEmpty = false;
-                    iArea = random.Next(1, 9);
-                    jArea = random.Next(1, 9);
-                    if (!area.BattleFields[iArea, jArea].IsShip)
+                    isShipComplete = true;
+                    do
                     {
-                        isEmpty = true;
-                        area.BattleFields[iArea, jArea].IsShip = true;
-
-                        for (int i = 1; i < ships.Last.Value.Lenght; i++)
+                        isEmpty = false;
+                        iArea = random.Next(1, 9);
+                        jArea = random.Next(1, 9);
+                        if (!area.BattleFields[iArea, jArea].IsShip)
                         {
-                            isShipComplete = true;
-                            if(area.BattleFields[iArea + i, jArea].IsShip || area.BattleFields[iArea + i, jArea].IsBound)
+                            List<Point> pointsToDelete = new List<Point>();
+                            isEmpty = true;
+                            area.BattleFields[iArea, jArea].IsShip = true;
+
+                            pointsToDelete.Add(new Point(iArea, jArea));
+
+                            for (int i = 1; i < ships.First.Value.Lenght; i++)
                             {
-                                isShipComplete = false;
-                                break;
+                                if (area.BattleFields[iArea + i, jArea].IsShip || area.BattleFields[iArea + i, jArea].IsBound)
+                                {
+                                    isShipComplete = false;
+                                    foreach(Point p in pointsToDelete)
+                                    {
+                                        area.BattleFields[p.X, p.Y].IsShip = false;
+                                    }
+                                    break;
+                                }
+                                area.BattleFields[iArea + i, jArea].IsShip = true;
+
+                                pointsToDelete.Add(new Point(iArea + i, jArea));
                             }
-                            area.BattleFields[iArea + i, jArea].IsShip = true;
                         }
                     }
+                    while (!isEmpty);
                 }
-                while (!isEmpty);
-
-
+                while (!isShipComplete);
+                
                 ships.RemoveFirst();
             }
             while (ships.Count > 0);
