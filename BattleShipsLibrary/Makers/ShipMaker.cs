@@ -35,25 +35,24 @@ namespace BattleShipsLibrary.Makers
                         if (!area.BattleFields[iArea, jArea].IsShip)
                         {
                             List<Point> pointsToDelete = new List<Point>();
+                            DrawingType drawingType = DrawingMethod();
                             isEmpty = true;
                             area.BattleFields[iArea, jArea].IsShip = true;
-
                             pointsToDelete.Add(new Point(iArea, jArea));
 
                             for (int i = 1; i < ships.First.Value.Lenght; i++)
                             {
-                                if (area.BattleFields[iArea + i, jArea].IsShip || area.BattleFields[iArea + i, jArea].IsBound)
+                                var iTemp = drawingType == DrawingType.Vertical ? iArea + i : iArea;
+                                var jTemp = drawingType == DrawingType.Horizontal ? jArea + i : jArea;
+
+                                if (area.BattleFields[iTemp, jTemp].IsShip || area.BattleFields[iTemp, jTemp].IsBound)
                                 {
                                     isShipComplete = false;
-                                    foreach(Point p in pointsToDelete)
-                                    {
-                                        area.BattleFields[p.X, p.Y].IsShip = false;
-                                    }
+                                    DeleteInCompleteShip(area, pointsToDelete);
                                     break;
                                 }
-                                area.BattleFields[iArea + i, jArea].IsShip = true;
-
-                                pointsToDelete.Add(new Point(iArea + i, jArea));
+                                area.BattleFields[iTemp, jTemp].IsShip = true;
+                                pointsToDelete.Add(new Point(iTemp, jTemp));
                             }
                         }
                     }
@@ -65,5 +64,24 @@ namespace BattleShipsLibrary.Makers
             }
             while (ships.Count > 0);
         }
+
+        private void DeleteInCompleteShip(BattleArea area, List<Point> pointsToDelete)
+        {
+            foreach (Point p in pointsToDelete)
+            {
+                area.BattleFields[p.X, p.Y].IsShip = false;
+            }
+        }
+
+        private DrawingType DrawingMethod()
+        {
+            Random r = new Random();
+            return r.Next(1, 10) > 5 ? DrawingType.Vertical : DrawingType.Horizontal;
+        }
+    }
+    enum DrawingType
+    {
+        Vertical,
+        Horizontal
     }
 }
