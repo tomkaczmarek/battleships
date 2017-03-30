@@ -11,7 +11,20 @@ namespace BattleShipsLibrary.Makers
 {
     public class ShipMaker : IShipMaker
     {
-        public void CreateBattleAreaWithShip(BattleArea area)
+        public BattleArea Area { get; }
+        public int Height { get;}
+        public int Width { get;}
+        private IAreaMaker maker;
+
+        public ShipMaker(BattleArea area, IAreaMaker maker)
+        {
+            Area = area;
+            Height = maker.Height;
+            Width = maker.Width;
+            this.maker = maker;
+        }
+
+        public void CreateBattleAreaWithShip()
         {
             //TODO make DI
             LinkedList<ShipBase> ships = new LinkedList<ShipBase>();
@@ -31,14 +44,14 @@ namespace BattleShipsLibrary.Makers
                     do
                     {
                         isEmpty = false;
-                        iArea = random.Next(1, 9);
-                        jArea = random.Next(1, 9);
-                        if (!area.BattleFields[iArea, jArea].IsShip)
+                        iArea = random.Next(1, Height - maker.Board);
+                        jArea = random.Next(1, Width - maker.Board);
+                        if (!Area.BattleFields[iArea, jArea].IsShip)
                         {
                             List<Point> pointsToDelete = new List<Point>();
                             DrawingType drawingType = DrawingMethod();
                             isEmpty = true;
-                            area.BattleFields[iArea, jArea].IsShip = true;
+                            Area.BattleFields[iArea, jArea].IsShip = true;
                             pointsToDelete.Add(new Point(iArea, jArea));
 
                             for (int i = 1; i < ships.First.Value.Lenght; i++)
@@ -46,13 +59,13 @@ namespace BattleShipsLibrary.Makers
                                 var iTemp = drawingType == DrawingType.Vertical ? iArea + i : iArea;
                                 var jTemp = drawingType == DrawingType.Horizontal ? jArea + i : jArea;
 
-                                if (area.BattleFields[iTemp, jTemp].IsShip || area.BattleFields[iTemp, jTemp].IsBound)
+                                if (Area.BattleFields[iTemp, jTemp].IsShip || Area.BattleFields[iTemp, jTemp].IsBound)
                                 {
                                     isShipComplete = false;
-                                    DeleteInCompleteShip(area, pointsToDelete);
+                                    DeleteInCompleteShip(Area, pointsToDelete);
                                     break;
                                 }
-                                area.BattleFields[iTemp, jTemp].IsShip = true;
+                                Area.BattleFields[iTemp, jTemp].IsShip = true;
                                 pointsToDelete.Add(new Point(iTemp, jTemp));
                             }
                         }

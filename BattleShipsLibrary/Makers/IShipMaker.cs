@@ -9,6 +9,9 @@ namespace BattleShipsLibrary.Makers
 {
     public interface IShipMaker
     {
-        void CreateBattleAreaWithShip(BattleArea area);
+        int Height { get; }
+        int Width { get; }
+        BattleArea Area { get; }
+        void CreateBattleAreaWithShip();
     }
 }

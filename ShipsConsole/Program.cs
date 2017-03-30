@@ -4,23 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BattleShipsLibrary.Makers;
+using BattleShipsLibrary.Utils;
 
 namespace ShipsConsole
 {
     class Program
     {
         static void Main(string[] args)
-        {          
+        {
+            int h = 19, w = 19;
             do
             {
-                IAreaMaker gameMaker = new AreaMaker();
-                var area = gameMaker.CreateBattleArea();
-                IShipMaker shipMaker = new ShipMaker();
-                shipMaker.CreateBattleAreaWithShip(area);
+                IAreaMaker gameMaker = new AreaMaker(h, w, true);
+                BattleArea area = gameMaker.CreateBattleArea();
+                IShipMaker shipMaker = new ShipMaker(area, gameMaker);
+                shipMaker.CreateBattleAreaWithShip();              
 
-                for (int i = 0; i < 11; i++)
+                for (int i = 0; i < h + gameMaker.Board; i++)
                 {
-                    for (int j = 0; j < 11; j++)
+                    for (int j = 0; j < w + gameMaker.Board; j++)
                     {
                         if (area.BattleFields[i, j].IsBound)
                         {

@@ -10,6 +10,10 @@ namespace BattleShipsLibrary.Makers
 {
     public interface IAreaMaker
     {
+        int Board { get; }
+        bool HasBoard { get; set; }
+        int Height { get; }
+        int Width { get; }
         BattleArea CreateBattleArea();
     }
 }
