@@ -10,10 +10,16 @@ namespace BattleShipsLibrary.Utils
     {
         public bool IsNearPointShip { get; set; }
         public int Lenght { get; set; }
+        public bool IsDestroy { get; set; }
 
         public ShipBase(int lenght)
         {
-            Lenght = lenght;
+
+        }
+
+        public ShipBase(bool isDestroy)
+        {
+
         }
     }
 }

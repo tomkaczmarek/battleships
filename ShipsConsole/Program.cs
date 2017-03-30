@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleShipsLibrary.Makers;
 using BattleShipsLibrary.Utils;
+using BattleShipsLibrary.Fields;
 
 namespace ShipsConsole
 {
@@ -24,19 +25,32 @@ namespace ShipsConsole
                 {
                     for (int j = 0; j < w + gameMaker.Board; j++)
                     {
-                        if (area.BattleFields[i, j].IsBound)
+                        BattleField field = area.BattleFields[i, j];
+
+                        if (field.IsBound)
                         {
                             Console.Write('*');
                         }
                         else
                         {
-                            if (!area.BattleFields[i, j].IsShip)
+                            if (field.IsShip)
                             {
-                                Console.Write('-');
+                                if(field.Ship.IsDestroy)
+                                {
+                                    Console.WriteLine('X');
+                                }
+                                else
+                                {
+                                    Console.Write('O');
+                                }
+                            }
+                            else if(field.IsNearPointShip)
+                            {
+                                Console.Write(".");
                             }
                             else
                             {
-                                Console.Write('X');
+                                Console.Write('-');
                             }
                         }
 

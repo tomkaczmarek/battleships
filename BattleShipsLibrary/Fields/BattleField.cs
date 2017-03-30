@@ -12,10 +12,12 @@ namespace BattleShipsLibrary.Fields
         public bool IsShip { get; set; }
         public bool IsNearPointShip { get; set; }
         public bool IsBound { get; set; }
+        public bool IsVisited { get; set; }
+        public ShipBase Ship { get; set; }
 
-        public BattleField(bool ship)
+        public BattleField()
         {
-            IsShip = ship;
+
         }
 
 

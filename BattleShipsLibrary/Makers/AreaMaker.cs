@@ -43,11 +43,11 @@ namespace BattleShipsLibrary.Makers
                 {
                     if (HasBoard && (j == 0 || i == 0 || j == Height - 1 || i == Width - 1))
                     {
-                        area.BattleFields[i, j] = new BattleField(false) { IsBound = true };
+                        area.BattleFields[i, j] = new BattleField() { IsBound = true };
                     }
                     else
                     {
-                        area.BattleFields[i, j] = new BattleField(false);
+                        area.BattleFields[i, j] = new BattleField();
                     }
                 }
             }
