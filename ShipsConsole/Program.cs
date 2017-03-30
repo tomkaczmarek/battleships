@@ -10,37 +10,44 @@ namespace ShipsConsole
     class Program
     {
         static void Main(string[] args)
-        {
-            IAreaMaker gameMaker = new AreaMaker();
-            var area = gameMaker.CreateBattleArea();
-            IShipMaker shipMaker = new ShipMaker();
-            shipMaker.CreateBattleAreaWithShip(area);
-
-            for (int i = 0; i < 11; i++)
+        {          
+            do
             {
-                for (int j = 0; j < 11; j++)
+                IAreaMaker gameMaker = new AreaMaker();
+                var area = gameMaker.CreateBattleArea();
+                IShipMaker shipMaker = new ShipMaker();
+                shipMaker.CreateBattleAreaWithShip(area);
+
+                for (int i = 0; i < 11; i++)
                 {
-                    if(area.BattleFields[i,j].IsBound)
+                    for (int j = 0; j < 11; j++)
                     {
-                        Console.Write('*');
-                    }
-                    else
-                    {
-                        if (!area.BattleFields[i, j].IsShip)
+                        if (area.BattleFields[i, j].IsBound)
                         {
-                            Console.Write('-');
+                            Console.Write('*');
                         }
                         else
                         {
-                            Console.Write('X');
+                            if (!area.BattleFields[i, j].IsShip)
+                            {
+                                Console.Write('-');
+                            }
+                            else
+                            {
+                                Console.Write('X');
+                            }
                         }
-                    }
-                    
-                }
-                Console.WriteLine();
-            }
 
-            Console.ReadLine();
+                    }
+                    Console.WriteLine();
+                }
+                Console.ReadLine();
+            }
+            while (true);
+
+            
+
+            
         }
     }
 }

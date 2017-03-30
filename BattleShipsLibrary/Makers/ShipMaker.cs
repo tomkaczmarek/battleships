@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleShipsLibrary.Utils;
 using System.Drawing;
+using System.Security.Cryptography;
 
 namespace BattleShipsLibrary.Makers
 {
@@ -13,7 +14,7 @@ namespace BattleShipsLibrary.Makers
         public void CreateBattleAreaWithShip(BattleArea area)
         {
             //TODO make DI
-            LinkedList<RegularShip> ships = new LinkedList<RegularShip>();
+            LinkedList<ShipBase> ships = new LinkedList<ShipBase>();
             for (int i = 5; i > 0; i--)
             {
                 ships.AddLast(new RegularShip(i));
@@ -75,13 +76,42 @@ namespace BattleShipsLibrary.Makers
 
         private DrawingType DrawingMethod()
         {
-            Random r = new Random();
-            return r.Next(1, 10) > 5 ? DrawingType.Vertical : DrawingType.Horizontal;
+            CustomRandom r = new CustomRandom();
+            return r.Next(1, 200) > 50 ? DrawingType.Vertical : DrawingType.Horizontal;
         }
     }
     enum DrawingType
     {
         Vertical,
         Horizontal
+    }
+
+    public class CustomRandom : RandomNumberGenerator
+    {
+        RandomNumberGenerator r;
+
+        public CustomRandom()
+        {
+            r = RandomNumberGenerator.Create();
+        }
+
+        public override void GetBytes(byte[] data)
+        {
+            r.GetBytes(data);
+        }
+
+        public double NextDouble()
+        {
+            byte[] b = new byte[4];
+            r.GetBytes(b);
+            return (double)BitConverter.ToInt32(b, 0) / UInt32.MaxValue;
+        }
+
+        public int Next(int min, int max)
+        {
+            return (int)Math.Abs((Math.Round(NextDouble() * (max - min - 1))+ min));
+        }
+
+        
     }
 }

@@ -8,9 +8,7 @@ namespace BattleShipsLibrary.Utils
 {
     public class RegularShip : ShipBase
     {
-        public int Lenght { get; set; }
-
-        public RegularShip(int lenght)
+        public RegularShip(int lenght) : base(lenght)
         {
             Lenght = lenght;
         }

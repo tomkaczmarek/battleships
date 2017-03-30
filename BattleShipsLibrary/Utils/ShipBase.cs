@@ -9,5 +9,11 @@ namespace BattleShipsLibrary.Utils
     public abstract class ShipBase
     {
         public bool IsNearPointShip { get; set; }
+        public int Lenght { get; set; }
+
+        public ShipBase(int lenght)
+        {
+            Lenght = lenght;
+        }
     }
 }
