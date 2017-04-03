@@ -12,6 +12,6 @@ namespace BattleShipsLibrary.Makers
         int Height { get; }
         int Width { get; }
         BattleArea Area { get; }
-        void CreateBattleAreaWithShip();
+        BattleArea CreateBattleAreaWithShip();
     }
 }

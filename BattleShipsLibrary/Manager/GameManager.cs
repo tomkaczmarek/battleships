@@ -1,7 +1,8 @@
-﻿using BattleShipsLibrary.Makers;
+﻿using BattleShipsLibrary.Fields;
 using BattleShipsLibrary.Utils;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,22 @@ namespace BattleShipsLibrary.Manager
 {
     public class GameManager
     {
-        public BattleArea Area { get; }
+        BattleArea Area { get; }
 
-        public GameManager(BattleArea area)
+        public BattleArea MatchPlayerArea(BattleArea playerArea, BattleArea npcArea, Point targetPoint)
         {
-            Area = area;
-        }
+            IField npcTarget = npcArea.BattleFields[targetPoint.X, targetPoint.Y].Field;
 
-        public void CreateArea()
-        {
-            IAreaMaker gameMaker = new AreaMaker(Area.Height, Area.Width, true);
-            BattleArea area = gameMaker.CreateBattleArea();
-            IShipMaker shipMaker = new ShipMaker(area, gameMaker);
-            shipMaker.CreateBattleAreaWithShip();
+            if(npcTarget is ShipField)
+            {
+                playerArea.BattleFields[targetPoint.X, targetPoint.Y] = new BattleField(new ShipField(new RegularShip(true)));
+            }
+            else
+            {
+                playerArea.BattleFields[targetPoint.X, targetPoint.Y] = new BattleField(new MissField());
+            }
+
+            return null;
         }
     }
 }

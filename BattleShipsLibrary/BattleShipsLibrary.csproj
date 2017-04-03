@@ -44,6 +44,7 @@
     <Compile Include="Fields\BoundField.cs" />
     <Compile Include="Fields\EmptyField.cs" />
     <Compile Include="Fields\IField.cs" />
+    <Compile Include="Fields\MissField.cs" />
     <Compile Include="Fields\NearPointShipField.cs" />
     <Compile Include="Fields\ShipField.cs" />
     <Compile Include="Helpers\CustomRandom.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Makers\IAreaMaker.cs" />
     <Compile Include="Makers\IShipMaker.cs" />
     <Compile Include="Makers\ShipMaker.cs" />
+    <Compile Include="Manager\GameAreaManager.cs" />
     <Compile Include="Manager\GameManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fields\BattleField.cs" />

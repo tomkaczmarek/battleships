@@ -7,6 +7,7 @@ using BattleShipsLibrary.Makers;
 using BattleShipsLibrary.Utils;
 using BattleShipsLibrary.Fields;
 using BattleShipsLibrary.Manager;
+using System.Drawing;
 
 namespace ShipsConsole
 {
@@ -15,58 +16,25 @@ namespace ShipsConsole
         static void Main(string[] args)
         {
             int h = 9, w = 9;
+            string[] points;
+            string input;
+            GameAreaManager npc = new GameAreaManager(new BattleArea(h, w));
+            GameAreaManager player = new GameAreaManager(new BattleArea(h, w));
+            GameManager manager = new GameManager();
+            npc.CreateArea();
+            player.CreateEmptyArea();
+
             do
-            {
-                IAreaMaker gameMaker = new AreaMaker(h, w, true);
-                BattleArea area = gameMaker.CreateBattleArea();
-                IShipMaker shipMaker = new ShipMaker(area, gameMaker);
-                shipMaker.CreateBattleAreaWithShip();              
+            {                            
+                npc.ShowArea();             
+                player.ShowArea();
 
-                for (int i = 0; i < h + gameMaker.Board; i++)
-                {
-                    for (int j = 0; j < w + gameMaker.Board; j++)
-                    {
-                        area.BattleFields[i, j].Field.MakeField();
+                input = Console.ReadLine();
+                points = input.Split(',');
 
-                        //BattleField field = area.BattleFields[i, j];
-
-                        //if (field.IsBound)
-                        //{
-                        //    Console.Write('*');
-                        //}
-                        //else
-                        //{
-                        //    if (field.IsShip)
-                        //    {
-                        //        if(field.Ship.IsDestroy)
-                        //        {
-                        //            Console.WriteLine('X');
-                        //        }
-                        //        else
-                        //        {
-                        //            Console.Write('O');
-                        //        }
-                        //    }
-                        //    else if(field.IsNearPointShip)
-                        //    {
-                        //        Console.Write(".");
-                        //    }
-                        //    else
-                        //    {
-                        //        Console.Write('-');
-                        //    }
-                        //}
-
-                    }
-                    Console.WriteLine();
-                }
-                Console.ReadLine();
+                manager.MatchPlayerArea(player.Area, npc.Area, new Point(int.Parse(points[1]),int.Parse(points[0])));
             }
-            while (true);
-
-            
-
-            
+            while (true);                    
         }
     }
 }
