@@ -28,5 +28,10 @@ namespace BattleShipsLibrary.Manager
 
             return null;
         }
+
+        public bool IsPlayerWin(int playerShips, int npcShips)
+        {
+            return playerShips == npcShips;
+        }
     }
 }

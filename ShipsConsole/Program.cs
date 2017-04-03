@@ -23,18 +23,31 @@ namespace ShipsConsole
             GameManager manager = new GameManager();
             npc.CreateArea();
             player.CreateEmptyArea();
+            bool isWinner = false;
 
             do
             {                            
                 npc.ShowArea();             
                 player.ShowArea();
 
-                input = Console.ReadLine();
-                points = input.Split(',');
+                Console.WriteLine(npc.ShipCount);
+                Console.WriteLine(player.ShipCount);
 
-                manager.MatchPlayerArea(player.Area, npc.Area, new Point(int.Parse(points[1]),int.Parse(points[0])));
+                if (manager.IsPlayerWin(player.ShipCount, npc.ShipCount))
+                {
+                    Console.WriteLine("WYGRAŁEŚ!");
+                    isWinner = true;
+                }
+                else
+                {
+                    input = Console.ReadLine();
+                    points = input.Split(',');
+                    manager.MatchPlayerArea(player.Area, npc.Area, new Point(int.Parse(points[1]), int.Parse(points[0])));
+                }                          
             }
-            while (true);                    
+            while (!isWinner);
+
+            Console.ReadLine();
         }
     }
 }

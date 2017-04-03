@@ -29,11 +29,11 @@ namespace BattleShipsLibrary.Makers
         {
             //TODO make DI
             LinkedList<ShipBase> ships = new LinkedList<ShipBase>();
-            for (int i = 5; i > 0; i--)
-            {
-                ships.AddLast(new RegularShip(i));
-            }
-            //ships.AddFirst(new RegularShip(5));
+            //for (int i = 5; i > 0; i--)
+            //{
+            //    ships.AddLast(new RegularShip(i));
+            //}
+            ships.AddFirst(new RegularShip(5));
             do
             {
                 Random random = new Random();
