@@ -6,6 +6,7 @@ using BattleShipsLibrary.Utils;
 using System.Drawing;
 
 using BattleShipsLibrary.Helpers;
+using BattleShipsLibrary.Fields;
 
 namespace BattleShipsLibrary.Makers
 {
@@ -46,13 +47,12 @@ namespace BattleShipsLibrary.Makers
                         isEmpty = false;
                         iArea = random.Next(1, Height - maker.Board);
                         jArea = random.Next(1, Width - maker.Board);
-                        if (!Area.BattleFields[iArea, jArea].IsShip)
+                        if (!(Area.BattleFields[iArea, jArea].Field is ShipField))
                         {
                             List<Point> shipPoints = new List<Point>();
                             DrawingType drawingType = DrawingMethod();
                             isEmpty = true;
-                            Area.BattleFields[iArea, jArea].IsShip = true;
-                            Area.BattleFields[iArea, jArea].Ship = new RegularShip(false);
+                            Area.BattleFields[iArea, jArea] = new BattleField(new ShipField(new RegularShip(false)));
                             shipPoints.Add(new Point(iArea, jArea));
 
                             for (int i = 1; i < ships.First.Value.Lenght; i++)
@@ -60,14 +60,13 @@ namespace BattleShipsLibrary.Makers
                                 var iTemp = drawingType == DrawingType.Vertical ? iArea + i : iArea;
                                 var jTemp = drawingType == DrawingType.Horizontal ? jArea + i : jArea;
 
-                                if (Area.BattleFields[iTemp, jTemp].IsShip || Area.BattleFields[iTemp, jTemp].IsBound || Area.BattleFields[iTemp, jTemp].IsNearPointShip)
+                                if (Area.BattleFields[iTemp, jTemp].Field is ShipField || Area.BattleFields[iTemp, jTemp].Field is BoundField || Area.BattleFields[iTemp, jTemp].Field is NearPointShipField)
                                 {
                                     isShipComplete = false;
                                     DeleteInCompleteShip(Area, shipPoints);
                                     break;
                                 }
-                                Area.BattleFields[iTemp, jTemp].IsShip = true;
-                                Area.BattleFields[iTemp, jTemp].Ship = new RegularShip(false);
+                                Area.BattleFields[iTemp, jTemp] = new BattleField(new ShipField(new RegularShip(false)));
                                 shipPoints.Add(new Point(iTemp, jTemp));
                             }
 
@@ -96,8 +95,7 @@ namespace BattleShipsLibrary.Makers
         {
             foreach (Point p in pointsToDelete)
             {
-                area.BattleFields[p.X, p.Y].IsShip = false;
-                area.BattleFields[p.X, p.Y].Ship = null;
+                area.BattleFields[p.X, p.Y] = new BattleField(new EmptyField());
             }
         }
 
@@ -112,9 +110,8 @@ namespace BattleShipsLibrary.Makers
                 int xTempMinus = drawingType == DrawingType.Horizontal ? p.X - 1 : p.X;
                 int yTempMinus = drawingType == DrawingType.Vertical ? p.Y - 1 : p.Y;
 
-                area.BattleFields[xTemp, yTemp].IsNearPointShip = true;
-                area.BattleFields[xTempMinus, yTempMinus].IsNearPointShip = true;
-
+                area.BattleFields[xTemp, yTemp] = new BattleField(new NearPointShipField());
+                area.BattleFields[xTempMinus, yTempMinus] = new BattleField(new NearPointShipField());
             }
 
             if(shipPoints.Count == 1)

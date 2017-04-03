@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fields\BoundField.cs" />
+    <Compile Include="Fields\EmptyField.cs" />
+    <Compile Include="Fields\IField.cs" />
+    <Compile Include="Fields\NearPointShipField.cs" />
+    <Compile Include="Fields\ShipField.cs" />
     <Compile Include="Helpers\CustomRandom.cs" />
     <Compile Include="Makers\AreaMaker.cs" />
     <Compile Include="Makers\IAreaMaker.cs" />

@@ -10,10 +10,14 @@ namespace BattleShipsLibrary.Utils
     public class BattleArea
     {
         public BattleField[,] BattleFields { get; set; }
+        public int Height { get; }
+        public int Width { get; }
 
         public BattleArea(int height, int width)
         {
             BattleFields = new BattleField[height, width];
+            Height = height;
+            Width = width;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BattleShipsLibrary.Makers;
 using BattleShipsLibrary.Utils;
 using BattleShipsLibrary.Fields;
+using BattleShipsLibrary.Manager;
 
 namespace ShipsConsole
 {
@@ -13,7 +14,7 @@ namespace ShipsConsole
     {
         static void Main(string[] args)
         {
-            int h = 19, w = 19;
+            int h = 9, w = 9;
             do
             {
                 IAreaMaker gameMaker = new AreaMaker(h, w, true);
@@ -25,34 +26,36 @@ namespace ShipsConsole
                 {
                     for (int j = 0; j < w + gameMaker.Board; j++)
                     {
-                        BattleField field = area.BattleFields[i, j];
+                        area.BattleFields[i, j].Field.MakeField();
 
-                        if (field.IsBound)
-                        {
-                            Console.Write('*');
-                        }
-                        else
-                        {
-                            if (field.IsShip)
-                            {
-                                if(field.Ship.IsDestroy)
-                                {
-                                    Console.WriteLine('X');
-                                }
-                                else
-                                {
-                                    Console.Write('O');
-                                }
-                            }
-                            else if(field.IsNearPointShip)
-                            {
-                                Console.Write(".");
-                            }
-                            else
-                            {
-                                Console.Write('-');
-                            }
-                        }
+                        //BattleField field = area.BattleFields[i, j];
+
+                        //if (field.IsBound)
+                        //{
+                        //    Console.Write('*');
+                        //}
+                        //else
+                        //{
+                        //    if (field.IsShip)
+                        //    {
+                        //        if(field.Ship.IsDestroy)
+                        //        {
+                        //            Console.WriteLine('X');
+                        //        }
+                        //        else
+                        //        {
+                        //            Console.Write('O');
+                        //        }
+                        //    }
+                        //    else if(field.IsNearPointShip)
+                        //    {
+                        //        Console.Write(".");
+                        //    }
+                        //    else
+                        //    {
+                        //        Console.Write('-');
+                        //    }
+                        //}
 
                     }
                     Console.WriteLine();
