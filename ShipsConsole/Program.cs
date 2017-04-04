@@ -33,8 +33,8 @@ namespace ShipsConsole
                 player.ShowArea();
 
                 Console.WriteLine();
-                Console.WriteLine("Trafiłeś: {0}/{1} statków.", player.ShipCount, npc.ShipCount);
-                Console.WriteLine("Pozostało {0} ruchów.", manager.LeftTurns);
+                Console.WriteLine("You hit: {0}/{1} ships.", player.ShipCount, npc.ShipCount);
+                Console.WriteLine("Left {0} turn.", manager.LeftTurns);
                 Console.WriteLine();
 
                 manager.WinnerConditions(player.ShipCount, npc.ShipCount, manager.LeftTurns);

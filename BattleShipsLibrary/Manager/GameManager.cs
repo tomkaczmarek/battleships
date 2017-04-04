@@ -82,13 +82,13 @@ namespace BattleShipsLibrary.Manager
         {
             if (IsPlayerWin(playerShips, npcShips))
             {
-                Console.WriteLine("WYGRAŁEŚ!");
+                Console.WriteLine("YOU WON!");
                 Score(playerShips, turns);
                 IsGameOver = true;
             }
             if (turns == 0)
             {
-                Console.WriteLine("PRZEGRAŁEŚ!");
+                Console.WriteLine("YOU LOSE!");
                 Score(playerShips, turns);
                 IsGameOver = true;
             }
@@ -96,7 +96,7 @@ namespace BattleShipsLibrary.Manager
 
         public void Score(int playerShips, int turns)
         {
-            Console.WriteLine("Twój wynik: {0} punktów.", (playerShips * 10) + turns);
+            Console.WriteLine("Your score: {0}.", (playerShips * 10) + turns);
         }
         
     }
