@@ -20,32 +20,31 @@ namespace ShipsConsole
             string input;
             GameAreaManager npc = new GameAreaManager(new BattleArea(h, w));
             GameAreaManager player = new GameAreaManager(new BattleArea(h, w));
-            GameManager manager = new GameManager();
+            GameManager manager = new GameManager(DifficultLevel.Easy, player);
+            manager.Configure();
             npc.CreateArea();
             player.CreateEmptyArea();
-            bool isWinner = false;
 
             do
             {                            
                 npc.ShowArea();             
                 player.ShowArea();
 
-                Console.WriteLine(npc.ShipCount);
-                Console.WriteLine(player.ShipCount);
+                Console.WriteLine("Trafiłeś: {0}/{1} statków.", player.ShipCount, npc.ShipCount);
+                Console.WriteLine("Pozostało {0} ruchów.", manager.LeftTurns);
 
-                if (manager.IsPlayerWin(player.ShipCount, npc.ShipCount))
-                {
-                    Console.WriteLine("WYGRAŁEŚ!");
-                    isWinner = true;
-                }
-                else
+                manager.WinnerConditions(player.ShipCount, npc.ShipCount, manager.LeftTurns);
+
+                if(!manager.IsGameOver)
                 {
                     input = Console.ReadLine();
                     points = input.Split(',');
                     manager.MatchPlayerArea(player.Area, npc.Area, new Point(int.Parse(points[1]), int.Parse(points[0])));
+
+                    manager.EndTurn();
                 }                          
             }
-            while (!isWinner);
+            while (!manager.IsGameOver);
 
             Console.ReadLine();
         }
