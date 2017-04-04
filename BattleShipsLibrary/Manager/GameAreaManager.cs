@@ -13,12 +13,14 @@ namespace BattleShipsLibrary.Manager
     {
         public BattleArea Area { get; private set; }
         public int ShipCount { get; private set; }
+        public GameShipManager ShipManager { get; set; }
 
         private IAreaMaker _areaMaker;
 
-        public GameAreaManager(BattleArea area)
+        public GameAreaManager(BattleArea area, GameShipManager shipManager)
         {
             Area = area;
+            ShipManager = shipManager;
         }
 
         public void CreateEmptyArea()
@@ -30,7 +32,7 @@ namespace BattleShipsLibrary.Manager
         public void CreateArea()
         {
             CreateEmptyArea();
-            IShipMaker shipMaker = new ShipMaker(Area, _areaMaker);
+            IShipMaker shipMaker = new ShipMaker(Area, _areaMaker, ShipManager.CreateShips());
             Area = shipMaker.CreateBattleAreaWithShip();
             ShipCount = shipMaker.ShipCount;
         }

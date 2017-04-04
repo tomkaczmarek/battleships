@@ -10,22 +10,25 @@ namespace ShipsConsole
         {
             int h = 9, w = 9;
             string input;
-            GameAreaManager npc = new GameAreaManager(new BattleArea(h, w));
+
+            GameShipManager shipManager = new GameShipManager();
+
+            GameAreaManager npc = new GameAreaManager(new BattleArea(h, w), shipManager);
             npc.CreateArea();
-            GameAreaManager player = new GameAreaManager(new BattleArea(h, w));
+
+            GameAreaManager player = new GameAreaManager(new BattleArea(h, w), shipManager);
             player.CreateEmptyArea();
+
             GameManager manager = new GameManager(DifficultLevel.Hard, npc);
             manager.Configure();
-            
-            
-
+                      
             do
             {
                 Console.Clear();
                 Console.WriteLine("Welcome to BattleShip");
                 Console.WriteLine("Please specify points to hit. (example A1)");
                 Console.WriteLine();
-             
+
                 player.ShowArea();
 
                 Console.WriteLine();

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using BattleShipsLibrary.Utils;
 using System.Drawing;
-
 using BattleShipsLibrary.Helpers;
 using BattleShipsLibrary.Fields;
+using BattleShipsLibrary.Manager;
 
 namespace BattleShipsLibrary.Makers
 {
@@ -16,26 +16,21 @@ namespace BattleShipsLibrary.Makers
         public int Height { get; }
         public int Width { get; }
         public int ShipCount { get; set; }
+        public LinkedList<ShipBase> Ships { get; set; }
 
         private IAreaMaker maker;
 
-        public ShipMaker(BattleArea area, IAreaMaker maker)
+        public ShipMaker(BattleArea area, IAreaMaker maker, LinkedList<ShipBase> ships)
         {
             Area = area;
             Height = maker.Height;
             Width = maker.Width;
             this.maker = maker;
+            Ships = ships;
         }
 
         public BattleArea CreateBattleAreaWithShip()
         {
-            //TODO make DI
-            LinkedList<ShipBase> ships = new LinkedList<ShipBase>();
-            for (int i = 5; i > 0; i--)
-            {
-                ships.AddLast(new RegularShip(i));
-            }
-
             do
             {
                 Random random = new Random();
@@ -58,7 +53,7 @@ namespace BattleShipsLibrary.Makers
                             Area.BattleFields[iArea, jArea] = new BattleField(new ShipField(new RegularShip(false)));
                             shipPoints.Add(new Point(iArea, jArea));
 
-                            for (int i = 1; i < ships.First.Value.Lenght; i++)
+                            for (int i = 1; i < Ships.First.Value.Lenght; i++)
                             {
                                 var iTemp = drawingType == DrawingType.Vertical ? iArea + i : iArea;
                                 var jTemp = drawingType == DrawingType.Horizontal ? jArea + i : jArea;
@@ -86,9 +81,9 @@ namespace BattleShipsLibrary.Makers
                 }
                 while (!isShipComplete);
 
-                ships.RemoveFirst();
+                Ships.RemoveFirst();
             }
-            while (ships.Count > 0);
+            while (Ships.Count > 0);
            
             return Area;
         }
