@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BattleShipsLibrary.Makers;
 using BattleShipsLibrary.Utils;
-using BattleShipsLibrary.Fields;
 using BattleShipsLibrary.Manager;
-using System.Drawing;
 
 namespace ShipsConsole
 {

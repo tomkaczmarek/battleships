@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleShipsLibrary.Mappers
 {
-    public static class Coordinates
+    internal static class Coordinates
     {
         public static string MapToChar(int i)
         {
