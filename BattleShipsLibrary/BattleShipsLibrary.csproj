@@ -54,6 +54,7 @@
     <Compile Include="Makers\ShipMaker.cs" />
     <Compile Include="Manager\GameAreaManager.cs" />
     <Compile Include="Manager\GameManager.cs" />
+    <Compile Include="Mappers\Coordinates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Fields\BattleField.cs" />
     <Compile Include="Utils\BattleArea.cs" />

@@ -10,7 +10,7 @@ namespace BattleShipsLibrary.Fields
     {
         public void MakeField()
         {
-            Console.Write("-");
+            Console.Write(" ");
         }
     }
 }

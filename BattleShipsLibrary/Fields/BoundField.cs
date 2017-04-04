@@ -8,9 +8,16 @@ namespace BattleShipsLibrary.Fields
 {
     public class BoundField : IField
     {
+        private string _symbol;
+
+        public BoundField(string symbol)
+        {
+            _symbol = symbol;
+        }
+
         public void MakeField()
         {
-            Console.Write("*");
+            Console.Write(_symbol);
         }
     }
 }

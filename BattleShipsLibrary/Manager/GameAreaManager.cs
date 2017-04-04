@@ -32,6 +32,7 @@ namespace BattleShipsLibrary.Manager
             CreateEmptyArea();
             IShipMaker shipMaker = new ShipMaker(Area, _areaMaker);
             Area = shipMaker.CreateBattleAreaWithShip();
+            ShipCount = shipMaker.ShipCount;
         }
 
         public void ShowArea()

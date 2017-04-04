@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleShipsLibrary.Fields;
 using BattleShipsLibrary.Utils;
+using BattleShipsLibrary.Mappers;
 
 namespace BattleShipsLibrary.Makers
 {
@@ -41,9 +42,26 @@ namespace BattleShipsLibrary.Makers
             {
                 for (int j = 0; j < Width; j++)
                 {
-                    if (HasBoard && (j == 0 || i == 0 || j == Height - 1 || i == Width - 1))
+                    if(HasBoard &&(j == 0 || i == 0 || j == Height - 1 || i == Width - 1))
                     {
-                        area.BattleFields[i, j] = new BattleField(new BoundField());
+                        if (i == 0)
+                        {
+                            if (j == Height - 1)
+                                area.BattleFields[i, j] = new BattleField(new BoundField(" "));
+                            else
+                                area.BattleFields[i, j] = new BattleField(new BoundField(Coordinates.MapToChar(j)));
+                        }                         
+                        else if (j == 0)
+                        {
+                            if (i == Width - 1)
+                                area.BattleFields[i, j] = new BattleField(new BoundField(" "));
+                            else
+                                area.BattleFields[i, j] = new BattleField(new BoundField(i.ToString()));
+                        }                         
+                        else if (j == Height - 1)
+                            area.BattleFields[i, j] = new BattleField(new BoundField("|"));
+                        else
+                            area.BattleFields[i, j] = new BattleField(new BoundField("-"));
                     }
                     else
                     {
