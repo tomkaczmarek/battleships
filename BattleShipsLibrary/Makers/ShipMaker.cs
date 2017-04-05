@@ -87,8 +87,8 @@ namespace BattleShipsLibrary.Makers
                             }
 
                             if (isShipComplete)
-                            {
-                                GeneratNearShipPoints(shipPoints, Area, drawingType);
+                            {                               
+                                GenerateNearShipPoints(shipPoints, Area, drawingType, ships);
                                 ShipCount += _shipsFieldCount;
                                 ShipContainer.Ships.Add(ships);
                             }
@@ -119,31 +119,49 @@ namespace BattleShipsLibrary.Makers
             }
         }
 
-        private void GeneratNearShipPoints(List<Point> shipPoints, BattleArea area, DrawingType drawingType)
+        private void GenerateNearShipPoints(List<Point> shipPoints, BattleArea area, DrawingType drawingType, List<ShipBase> ships)
         {
             foreach (Point p in shipPoints)
             {
+                ShipBase s = ships.Where(t => t.ShipsPoints.X == p.X && t.ShipsPoints.Y == p.Y).First();
+
                 int xTemp = drawingType == DrawingType.Horizontal ? p.X + 1 : p.X;
                 int yTemp = drawingType == DrawingType.Vertical ? p.Y + 1 : p.Y;
                 int xTempMinus = drawingType == DrawingType.Horizontal ? p.X - 1 : p.X;
                 int yTempMinus = drawingType == DrawingType.Vertical ? p.Y - 1 : p.Y;
 
                 if (!(area.BattleFields[xTemp, yTemp].Field is BoundField) && !(area.BattleFields[xTemp, yTemp].Field is ShipField))
+                {
                     area.BattleFields[xTemp, yTemp] = new BattleField(new NearPointShipField());
+                    s.NearShipPoints.Add(new Point(xTemp, yTemp));
+                }                   
                 if (!(area.BattleFields[xTempMinus, yTempMinus].Field is BoundField) && !(area.BattleFields[xTempMinus, yTempMinus].Field is ShipField))
+                {
                     area.BattleFields[xTempMinus, yTempMinus] = new BattleField(new NearPointShipField());
+                    s.NearShipPoints.Add(new Point(xTempMinus, yTempMinus));
+                }                   
             }
 
             Point point = shipPoints.First();
             Point lastPoint = shipPoints.Last();
+
+            ShipBase sFirst = ships.Where(t => t.ShipsPoints.X == point.X && t.ShipsPoints.Y == point.Y).First();
+            ShipBase lFirst = ships.Where(t => t.ShipsPoints.X == lastPoint.X && t.ShipsPoints.Y == lastPoint.Y).First();
+
             if (drawingType == DrawingType.Horizontal)
             {
                 for (int i = -1; i < 2; i++)
                 {
                     if (!(area.BattleFields[point.X + i, point.Y - 1].Field is BoundField))
+                    {
                         area.BattleFields[point.X + i, point.Y - 1] = new BattleField(new NearPointShipField());
+                        sFirst.NearShipPoints.Add(new Point(point.X + i, point.Y - 1));
+                    }                     
                     if (!(area.BattleFields[lastPoint.X + i, lastPoint.Y + 1].Field is BoundField))
+                    {
                         area.BattleFields[lastPoint.X + i, lastPoint.Y + 1] = new BattleField(new NearPointShipField());
+                        lFirst.NearShipPoints.Add(new Point(lastPoint.X + i, lastPoint.Y + 1));
+                    }                     
                 }
             }
             else
@@ -151,9 +169,15 @@ namespace BattleShipsLibrary.Makers
                 for(int i =-1; i<2; i++)
                 {
                     if (!(area.BattleFields[point.X - 1, point.Y + i].Field is BoundField))
-                        area.BattleFields[point.X -1 , point.Y + i] = new BattleField(new NearPointShipField());
+                    {
+                        area.BattleFields[point.X - 1, point.Y + i] = new BattleField(new NearPointShipField());
+                        sFirst.NearShipPoints.Add(new Point(point.X - 1, point.Y + i));
+                    }                      
                     if (!(area.BattleFields[lastPoint.X + 1, lastPoint.Y + i].Field is BoundField))
+                    {
                         area.BattleFields[lastPoint.X + 1, lastPoint.Y + i] = new BattleField(new NearPointShipField());
+                        lFirst.NearShipPoints.Add(new Point(lastPoint.X + 1, lastPoint.Y + i));
+                    }                     
                 }
             }
         }

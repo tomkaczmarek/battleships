@@ -47,16 +47,16 @@ namespace BattleShipsLibrary.Makers
                         if (i == 0)
                         {
                             if (j == Height - 1)
-                                area.BattleFields[i, j] = new BattleField(new BoundField(" "));
+                                area.BattleFields[i, j] = new BattleField(new BoundField("  "));
                             else
                                 area.BattleFields[i, j] = new BattleField(new BoundField(Coordinates.MapToChar(j)));
                         }                         
                         else if (j == 0)
                         {
                             if (i == Width - 1)
-                                area.BattleFields[i, j] = new BattleField(new BoundField(" "));
+                                area.BattleFields[i, j] = new BattleField(new BoundField("  "));
                             else
-                                area.BattleFields[i, j] = new BattleField(new BoundField(i.ToString()));
+                                area.BattleFields[i, j] = new BattleField(new BoundField(Coordinates.MapIntToStringFormat(i)));
                         }                         
                         else if (j == Height - 1)
                             area.BattleFields[i, j] = new BattleField(new BoundField("|"));

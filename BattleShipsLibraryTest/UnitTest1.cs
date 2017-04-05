@@ -12,7 +12,7 @@ namespace BattleShipsLibraryTest
 
         private IAreaMaker MakeMakers(bool hasBoard)
         {
-            return new AreaMaker(9, 9, hasBoard);
+            return new AreaMaker(14, 14, hasBoard);
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace BattleShipsLibraryTest
 
             BattleArea area = maker.CreateBattleArea();
 
-            Assert.AreEqual(121, area.BattleFields.Length);
+            Assert.AreEqual(256, area.BattleFields.Length);
         }
 
         [Test]
@@ -33,8 +33,10 @@ namespace BattleShipsLibraryTest
 
             BattleArea area = maker.CreateBattleArea();
 
-            Assert.AreEqual(81, area.BattleFields.Length);
+            Assert.AreEqual(196, area.BattleFields.Length);
         }
+
+
 
     }
 }

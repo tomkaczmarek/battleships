@@ -81,6 +81,11 @@ namespace BattleShipsLibrary.Manager
                         foreach(ShipBase s in listOfShips)
                         {
                             playerArea.BattleFields[s.ShipsPoints.X, s.ShipsPoints.Y] = new BattleField(new ShipDestroyField());
+
+                            foreach(Point p in s.NearShipPoints)
+                            {
+                                playerArea.BattleFields[p.X, p.Y] = new BattleField(new MissField());
+                            }
                         }
                     }
                 }

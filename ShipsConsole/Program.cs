@@ -8,7 +8,7 @@ namespace ShipsConsole
     {
         static void Main(string[] args)
         {
-            int h = 9, w = 9;
+            int h = 11, w = 11;
             string input;
 
             GameShipManager shipManager = new GameShipManager();
