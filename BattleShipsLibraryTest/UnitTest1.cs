@@ -18,12 +18,12 @@ namespace BattleShipsLibraryTest
         [Test]
         public void CreateBattleField_AllFieldsCountEquals_121()
         {
-            //bool hasBoard = true;
-            //IAreaMaker maker = MakeMakers(hasBoard);
+            bool hasBoard = true;
+            IAreaMaker maker = MakeMakers(hasBoard);
 
-            //BattleArea area = maker.CreateBattleArea();
+            BattleArea area = maker.CreateBattleArea();
 
-            //Assert.AreEqual(121, area.BattleFields.Length);
+            Assert.AreEqual(121, area.BattleFields.Length);
         }
 
         [Test]

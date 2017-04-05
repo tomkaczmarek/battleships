@@ -29,7 +29,6 @@ namespace ShipsConsole
                 Console.WriteLine("Please specify points to hit. (example A1)");
                 Console.WriteLine();
 
-                npc.ShowArea();
                 player.ShowArea();
 
                 Console.WriteLine();

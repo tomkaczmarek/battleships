@@ -12,13 +12,14 @@ namespace BattleShipsLibrary.Manager
 {
     public class GameManager
     {
-        private int _diffRatio;
+        private int _difficultRatio;
         private GameAreaManager _areaManager;
 
         BattleArea Area { get; }
         public bool IsGameOver { get; set; }
         public int LeftTurns { get; set; }
         public DifficultLevel Level { get; set; }
+        private bool _subTurn;
 
         public GameManager(DifficultLevel level, GameAreaManager areaManager)
         {
@@ -28,27 +29,26 @@ namespace BattleShipsLibrary.Manager
 
         public void Configure()
         {
-
             switch (Level)
             {
                 case DifficultLevel.Easy:
-                    _diffRatio = 6;
+                    _difficultRatio = 10;
                     break;
                 case DifficultLevel.Medium:
-                    _diffRatio = 8;
+                    _difficultRatio = 13;
                     break;
                 case DifficultLevel.Hard:
-                    _diffRatio = 10;
+                    _difficultRatio = 16;
                     break;
                 default:
                     break;
             }
-
-            LeftTurns = ((_areaManager.Area.Height * _areaManager.Area.Width) / _diffRatio) + _areaManager.ShipCount;
+            LeftTurns = ((_areaManager.Area.Height * _areaManager.Area.Width) / _difficultRatio) + _areaManager.ShipCount;
         }
 
         public void MatchPlayerArea(BattleArea playerArea, BattleArea npcArea, string targetPoint, ShipsContainer shipsContainer)
         {
+            _subTurn = true;
             bool isDestroyShip = false;
             int y = Coordinates.MapToLiteral(targetPoint[0].ToString());
             int x = int.Parse(targetPoint[1].ToString());
@@ -59,6 +59,7 @@ namespace BattleShipsLibrary.Manager
             {
                 if (npcTarget is ShipField)
                 {
+                    _subTurn = false;
                     Guid guid = (npcArea.BattleFields[x, y].Field as ShipField).ShipType.Guid;
                     playerArea.BattleFields[x, y] = new BattleField(new ShipField(new RegularShip(true, guid)));
 
@@ -90,16 +91,6 @@ namespace BattleShipsLibrary.Manager
             }
         }
 
-        public bool IsPlayerWin(int playerShips, int npcShips)
-        {
-            return playerShips == npcShips;
-        }
-
-        public void EndTurn()
-        {
-            LeftTurns -= 1;
-        }
-
         public void WinnerConditions(int playerShips, int npcShips, int turns)
         {
             if (IsPlayerWin(playerShips, npcShips))
@@ -114,6 +105,19 @@ namespace BattleShipsLibrary.Manager
                 Score(playerShips, turns);
                 IsGameOver = true;
             }
+        }
+
+        public bool IsPlayerWin(int playerShips, int npcShips)
+        {
+            return playerShips == npcShips;
+        }
+
+        public void EndTurn()
+        {
+            if(_subTurn)
+            {
+                LeftTurns -= 1;
+            }          
         }
 
         public void Score(int playerShips, int turns)
