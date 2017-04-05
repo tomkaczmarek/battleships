@@ -34,23 +34,27 @@ namespace BattleShipsLibrary.Makers
             do
             {
                 Random random = new Random();
-                bool isEmpty, isShipComplete;
+                bool isEmptyField, isShipComplete;
                 int iArea, jArea;
                 do
                 {
                     isShipComplete = true;
                     do
                     {
-                        isEmpty = false;
+                        isEmptyField = true;
+
                         iArea = random.Next(1, Height - maker.Board);
                         jArea = random.Next(1, Width - maker.Board);
+
                         if (!(Area.BattleFields[iArea, jArea].Field is ShipField) && !(Area.BattleFields[iArea, jArea].Field is NearPointShipField))
                         {
-                            List<Point> shipPoints = new List<Point>();
-                            DrawingType drawingType = DrawingMethod();
+                            isEmptyField = false;
                             int _shipsFieldCount = 1;
-                            isEmpty = true;
+
+                            List<Point> shipPoints = new List<Point>();
+                            DrawingType drawingType = DrawingMethod();                                                 
                             Area.BattleFields[iArea, jArea] = new BattleField(new ShipField(new RegularShip(false)));
+
                             shipPoints.Add(new Point(iArea, jArea));
 
                             for (int i = 1; i < Ships.First.Value.Lenght; i++)
@@ -65,9 +69,10 @@ namespace BattleShipsLibrary.Makers
                                     DeleteInCompleteShip(Area, shipPoints);
                                     break;
                                 }
-                                Area.BattleFields[iTemp, jTemp] = new BattleField(new ShipField(new RegularShip(false)));
-                                shipPoints.Add(new Point(iTemp, jTemp));
                                 _shipsFieldCount += 1;
+
+                                Area.BattleFields[iTemp, jTemp] = new BattleField(new ShipField(new RegularShip(false)));
+                                shipPoints.Add(new Point(iTemp, jTemp));                              
                             }
 
                             if (isShipComplete)
@@ -77,7 +82,7 @@ namespace BattleShipsLibrary.Makers
                             }
                         }
                     }
-                    while (!isEmpty);
+                    while (isEmptyField);
                 }
                 while (!isShipComplete);
 
@@ -140,8 +145,6 @@ namespace BattleShipsLibrary.Makers
                 }
             }
         }
-
-
     }
     enum DrawingType
     {
