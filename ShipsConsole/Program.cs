@@ -34,7 +34,6 @@ namespace ShipsConsole
                 Console.WriteLine();
                 Console.WriteLine("You hit: {0}/{1} ships.", player.ShipCount, npc.ShipCount);
                 Console.WriteLine("Left {0} turns.", manager.LeftTurns);
-                Console.WriteLine("Please specify points to hit. (example A1)");
                 Console.WriteLine();
 
                 manager.WinnerConditions(player.ShipCount, npc.ShipCount, manager.LeftTurns);
