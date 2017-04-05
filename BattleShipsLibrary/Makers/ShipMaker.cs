@@ -17,6 +17,7 @@ namespace BattleShipsLibrary.Makers
         public int Width { get; }
         public int ShipCount { get; set; }
         public LinkedList<ShipBase> Ships { get; set; }
+        public ShipsContainer ShipContainer { get; set; }
 
         private IAreaMaker maker;
 
@@ -27,13 +28,16 @@ namespace BattleShipsLibrary.Makers
             Width = maker.Width;
             this.maker = maker;
             Ships = ships;
+            ShipContainer = new ShipsContainer();
         }
 
         public BattleArea CreateBattleAreaWithShip()
         {
+            ShipContainer.Ships = new List<List<ShipBase>>();
+
             do
             {
-                Random random = new Random();
+                Random random = new Random();             
                 bool isEmptyField, isShipComplete;
                 int iArea, jArea;
                 do
@@ -46,15 +50,19 @@ namespace BattleShipsLibrary.Makers
                         iArea = random.Next(1, Height - maker.Board);
                         jArea = random.Next(1, Width - maker.Board);
 
+                        Guid shipGuid = Guid.NewGuid();
+
                         if (!(Area.BattleFields[iArea, jArea].Field is ShipField) && !(Area.BattleFields[iArea, jArea].Field is NearPointShipField))
                         {
                             isEmptyField = false;
                             int _shipsFieldCount = 1;
+                            List<ShipBase> ships = new List<ShipBase>();
 
                             List<Point> shipPoints = new List<Point>();
-                            DrawingType drawingType = DrawingMethod();                                                 
-                            Area.BattleFields[iArea, jArea] = new BattleField(new ShipField(new RegularShip(false)));
-
+                            DrawingType drawingType = DrawingMethod();
+                            ShipBase shipToField = new RegularShip(false, shipGuid) { ShipsPoints = new Point(iArea, jArea) };
+                            Area.BattleFields[iArea, jArea] = new BattleField(new ShipField(shipToField));
+                            ships.Add(shipToField);
                             shipPoints.Add(new Point(iArea, jArea));
 
                             for (int i = 1; i < Ships.First.Value.Lenght; i++)
@@ -71,14 +79,18 @@ namespace BattleShipsLibrary.Makers
                                 }
                                 _shipsFieldCount += 1;
 
-                                Area.BattleFields[iTemp, jTemp] = new BattleField(new ShipField(new RegularShip(false)));
-                                shipPoints.Add(new Point(iTemp, jTemp));                              
+                                shipToField = new RegularShip(false, shipGuid) { ShipsPoints = new Point(iTemp, jTemp) };
+                                Area.BattleFields[iTemp, jTemp] = new BattleField(new ShipField(shipToField));
+                                shipPoints.Add(new Point(iTemp, jTemp));
+                                ships.Add(shipToField);
+                                
                             }
 
                             if (isShipComplete)
                             {
                                 GeneratNearShipPoints(shipPoints, Area, drawingType);
                                 ShipCount += _shipsFieldCount;
+                                ShipContainer.Ships.Add(ships);
                             }
                         }
                     }

@@ -14,5 +14,6 @@ namespace BattleShipsLibrary.Makers
         BattleArea Area { get; }
         BattleArea CreateBattleAreaWithShip();
         int ShipCount { get; set; }
+        ShipsContainer ShipContainer { get; set; }
     }
 }

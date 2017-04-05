@@ -9,7 +9,7 @@ namespace BattleShipsLibrary.Fields
 {
     public class ShipField : IField
     {
-        private ShipBase ShipType { get; set; }
+        public ShipBase ShipType { get; set; }
 
         public ShipField(ShipBase ship)
         {
@@ -18,7 +18,7 @@ namespace BattleShipsLibrary.Fields
 
         public void MakeField()
         {
-            Console.Write("X");
+            Console.Write("O");
         }
     }
 }

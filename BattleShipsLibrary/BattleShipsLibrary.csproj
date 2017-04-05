@@ -46,6 +46,7 @@
     <Compile Include="Fields\IField.cs" />
     <Compile Include="Fields\MissField.cs" />
     <Compile Include="Fields\NearPointShipField.cs" />
+    <Compile Include="Fields\ShipDestroyField.cs" />
     <Compile Include="Fields\ShipField.cs" />
     <Compile Include="Helpers\CustomRandom.cs" />
     <Compile Include="Makers\AreaMaker.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Utils\BattleArea.cs" />
     <Compile Include="Utils\RegularShip.cs" />
     <Compile Include="Utils\ShipBase.cs" />
+    <Compile Include="Utils\ShipsContainer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

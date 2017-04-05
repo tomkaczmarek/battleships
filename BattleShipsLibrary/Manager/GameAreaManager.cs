@@ -14,6 +14,7 @@ namespace BattleShipsLibrary.Manager
         public BattleArea Area { get; private set; }
         public int ShipCount { get; private set; }
         public GameShipManager ShipManager { get; set; }
+        public ShipsContainer ShipContainer { get; set; }
 
         private IAreaMaker _areaMaker;
 
@@ -21,6 +22,7 @@ namespace BattleShipsLibrary.Manager
         {
             Area = area;
             ShipManager = shipManager;
+            ShipContainer = new ShipsContainer();
         }
 
         public void CreateEmptyArea()
@@ -35,6 +37,7 @@ namespace BattleShipsLibrary.Manager
             IShipMaker shipMaker = new ShipMaker(Area, _areaMaker, ShipManager.CreateShips());
             Area = shipMaker.CreateBattleAreaWithShip();
             ShipCount = shipMaker.ShipCount;
+            ShipContainer = shipMaker.ShipContainer;
         }
 
         public void ShowArea()
@@ -45,7 +48,7 @@ namespace BattleShipsLibrary.Manager
                 for (int j = 0; j < Area.Width; j++)
                 {
                     Area.BattleFields[i, j].Field.MakeField();
-                    if(Area.BattleFields[i, j].Field is ShipField)
+                    if(Area.BattleFields[i, j].Field is ShipField || Area.BattleFields[i, j].Field is ShipDestroyField)
                     {
                         count += 1;
                     }

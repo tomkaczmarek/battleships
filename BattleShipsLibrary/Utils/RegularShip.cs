@@ -13,9 +13,9 @@ namespace BattleShipsLibrary.Utils
             Lenght = lenght;
         }
 
-        public RegularShip(bool isDestroy) : base(isDestroy)
+        public RegularShip(bool isDestroy, Guid guid) : base(isDestroy, guid)
         {
-            IsDestroy = isDestroy;
+
         }
     }
 }

@@ -47,9 +47,9 @@ namespace BattleShipsLibrary.Manager
             LeftTurns = ((_areaManager.Area.Height * _areaManager.Area.Width) / _diffRatio) + _areaManager.ShipCount;
         }
 
-        public void MatchPlayerArea(BattleArea playerArea, BattleArea npcArea, string targetPoint)
+        public void MatchPlayerArea(BattleArea playerArea, BattleArea npcArea, string targetPoint, ShipsContainer shipsContainer)
         {
-
+            bool isDestroyShip = false;
             int y = Coordinates.MapToLiteral(targetPoint[0].ToString());
             int x = int.Parse(targetPoint[1].ToString());
 
@@ -59,7 +59,29 @@ namespace BattleShipsLibrary.Manager
             {
                 if (npcTarget is ShipField)
                 {
-                    playerArea.BattleFields[x, y] = new BattleField(new ShipField(new RegularShip(true)));
+                    Guid guid = (npcArea.BattleFields[x, y].Field as ShipField).ShipType.Guid;
+                    playerArea.BattleFields[x, y] = new BattleField(new ShipField(new RegularShip(true, guid)));
+
+                    List<ShipBase> listOfShips = shipsContainer.GetShipsByGuid(guid);
+                    listOfShips.First(d => (d.ShipsPoints.X == x && d.ShipsPoints.Y == y)).IsDestroy = true;
+
+                    foreach(ShipBase s in listOfShips)
+                    {
+                        if(!s.IsDestroy)
+                        {
+                            isDestroyShip = false;
+                            break;
+                        }
+                        isDestroyShip = true;
+                    }
+
+                    if(isDestroyShip)
+                    {
+                        foreach(ShipBase s in listOfShips)
+                        {
+                            playerArea.BattleFields[s.ShipsPoints.X, s.ShipsPoints.Y] = new BattleField(new ShipDestroyField());
+                        }
+                    }
                 }
                 else
                 {
