@@ -51,7 +51,7 @@ namespace BattleShipsLibrary.Manager
             _subTurn = true;
             bool isDestroyShip = false;
             int y = Coordinates.MapToLiteral(targetPoint[0].ToString());
-            int x = int.Parse(targetPoint[1].ToString());
+            int x = int.Parse(targetPoint.Substring(1));
 
             IField npcTarget = npcArea.BattleFields[x, y].Field;
 

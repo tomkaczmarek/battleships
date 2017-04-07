@@ -21,7 +21,7 @@ namespace ShipsConsole
 
             GameManager manager = new GameManager(DifficultLevel.Hard, npc);
             manager.Configure();
-                      
+
             do
             {
                 Console.Clear();
@@ -38,15 +38,14 @@ namespace ShipsConsole
 
                 manager.WinnerConditions(player.ShipCount, npc.ShipCount, manager.LeftTurns);
 
-                if(!manager.IsGameOver)
+                if (!manager.IsGameOver)
                 {
                     input = Console.ReadLine();
 
-                    if(input.Length == 2)
-                    {
-                        manager.MatchPlayerArea(player.Area, npc.Area, input, npc.ShipContainer);
-                        manager.EndTurn();
-                    }
+
+                    manager.MatchPlayerArea(player.Area, npc.Area, input, npc.ShipContainer);
+                    manager.EndTurn();
+
                 }
                 else
                 {
