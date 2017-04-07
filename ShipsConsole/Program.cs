@@ -33,10 +33,10 @@ namespace ShipsConsole
 
                 Console.WriteLine();
                 Console.WriteLine("You hit: {0}/{1} ships.", player.ShipCount, npc.ShipCount);
-                Console.WriteLine("Left {0} turns.", manager.LeftTurns);
+                Console.WriteLine("Moves {0}.", manager.Turns);
                 Console.WriteLine();
 
-                manager.WinnerConditions(player.ShipCount, npc.ShipCount, manager.LeftTurns);
+                manager.WinnerConditions(player.ShipCount, npc.ShipCount, manager.Turns);
 
                 if (!manager.IsGameOver)
                 {

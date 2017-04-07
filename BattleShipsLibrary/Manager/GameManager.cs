@@ -17,9 +17,8 @@ namespace BattleShipsLibrary.Manager
 
         BattleArea Area { get; }
         public bool IsGameOver { get; set; }
-        public int LeftTurns { get; set; }
+        public int Turns { get; set; }
         public DifficultLevel Level { get; set; }
-        private bool _subTurn;
 
         public GameManager(DifficultLevel level, GameAreaManager areaManager)
         {
@@ -43,12 +42,11 @@ namespace BattleShipsLibrary.Manager
                 default:
                     break;
             }
-            LeftTurns = ((_areaManager.Area.Height * _areaManager.Area.Width) / _difficultRatio) + _areaManager.ShipCount;
+            Turns = 0;
         }
 
         public void MatchPlayerArea(BattleArea playerArea, BattleArea npcArea, string targetPoint, ShipsContainer shipsContainer)
         {
-            _subTurn = true;
             bool isDestroyShip = false;
             int y = Coordinates.MapToLiteral(targetPoint[0].ToString());
             int x = int.Parse(targetPoint.Substring(1));
@@ -59,16 +57,15 @@ namespace BattleShipsLibrary.Manager
             {
                 if (npcTarget is ShipField)
                 {
-                    _subTurn = false;
                     Guid guid = (npcArea.BattleFields[x, y].Field as ShipField).ShipType.Guid;
                     playerArea.BattleFields[x, y] = new BattleField(new ShipField(new RegularShip(true, guid)));
 
                     List<ShipBase> listOfShips = shipsContainer.GetShipsByGuid(guid);
                     listOfShips.First(d => (d.ShipsPoints.X == x && d.ShipsPoints.Y == y)).IsDestroy = true;
 
-                    foreach(ShipBase s in listOfShips)
+                    foreach (ShipBase s in listOfShips)
                     {
-                        if(!s.IsDestroy)
+                        if (!s.IsDestroy)
                         {
                             isDestroyShip = false;
                             break;
@@ -76,13 +73,13 @@ namespace BattleShipsLibrary.Manager
                         isDestroyShip = true;
                     }
 
-                    if(isDestroyShip)
+                    if (isDestroyShip)
                     {
-                        foreach(ShipBase s in listOfShips)
+                        foreach (ShipBase s in listOfShips)
                         {
                             playerArea.BattleFields[s.ShipsPoints.X, s.ShipsPoints.Y] = new BattleField(new ShipDestroyField());
 
-                            foreach(Point p in s.NearShipPoints)
+                            foreach (Point p in s.NearShipPoints)
                             {
                                 playerArea.BattleFields[p.X, p.Y] = new BattleField(new MissField());
                             }
@@ -104,12 +101,6 @@ namespace BattleShipsLibrary.Manager
                 Score(playerShips, turns);
                 IsGameOver = true;
             }
-            if (turns == 0)
-            {
-                Console.WriteLine("YOU LOSE!");
-                Score(playerShips, turns);
-                IsGameOver = true;
-            }
         }
 
         public bool IsPlayerWin(int playerShips, int npcShips)
@@ -119,17 +110,14 @@ namespace BattleShipsLibrary.Manager
 
         public void EndTurn()
         {
-            if(_subTurn)
-            {
-                LeftTurns -= 1;
-            }          
+            Turns += 1;
         }
 
         public void Score(int playerShips, int turns)
         {
-            Console.WriteLine("Your score: {0}.", (playerShips * 10) + turns);
+            Console.WriteLine("Your score: {0}.", (playerShips * 10) - turns);
         }
-        
+
     }
     public enum DifficultLevel
     {
