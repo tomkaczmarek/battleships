@@ -8,9 +8,16 @@ namespace BattleShipsLibrary.Fields
 {
     public class EmptyField : IField
     {
-        public void MakeField()
+        private string _symbol;
+
+        public EmptyField(string symbol)
         {
-            Console.Write(" ");
+            _symbol = symbol;
+        }
+
+        public string MakeField()
+        {
+            return " ";
         }
     }
 }

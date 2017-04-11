@@ -8,9 +8,9 @@ namespace BattleShipsLibrary.Fields
 {
     public class NearPointShipField : IField
     {
-        public void MakeField()
+        public string MakeField()
         {
-            Console.Write(" ");
+            return " ";
         }
     }
 }

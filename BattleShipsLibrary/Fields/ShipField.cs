@@ -16,9 +16,9 @@ namespace BattleShipsLibrary.Fields
             ShipType = ship;
         }
 
-        public void MakeField()
+        public string MakeField()
         {
-            Console.Write("O");
+            return "O";
         }
     }
 }

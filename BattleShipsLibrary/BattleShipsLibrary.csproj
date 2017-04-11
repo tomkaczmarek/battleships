@@ -49,6 +49,7 @@
     <Compile Include="Fields\ShipDestroyField.cs" />
     <Compile Include="Fields\ShipField.cs" />
     <Compile Include="Helpers\CustomRandom.cs" />
+    <Compile Include="Helpers\SymbolsContent.cs" />
     <Compile Include="Makers\AreaMaker.cs" />
     <Compile Include="Makers\IAreaMaker.cs" />
     <Compile Include="Makers\IShipMaker.cs" />

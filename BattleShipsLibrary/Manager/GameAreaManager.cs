@@ -47,7 +47,7 @@ namespace BattleShipsLibrary.Manager
             {
                 for (int j = 0; j < Area.Width; j++)
                 {
-                    Area.BattleFields[i, j].Field.MakeField();
+                    Console.Write(Area.BattleFields[i, j].Field.MakeField());
                     if(Area.BattleFields[i, j].Field is ShipField || Area.BattleFields[i, j].Field is ShipDestroyField)
                     {
                         count += 1;

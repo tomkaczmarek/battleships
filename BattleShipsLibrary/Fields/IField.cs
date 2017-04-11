@@ -8,6 +8,6 @@ namespace BattleShipsLibrary.Fields
 {
     public interface IField
     {
-        void MakeField();
+        string MakeField();
     }
 }

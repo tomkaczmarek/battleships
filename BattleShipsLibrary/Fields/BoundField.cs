@@ -15,9 +15,9 @@ namespace BattleShipsLibrary.Fields
             _symbol = symbol;
         }
 
-        public void MakeField()
+        public string MakeField()
         {
-            Console.Write(_symbol);
+            return _symbol;
         }
     }
 }

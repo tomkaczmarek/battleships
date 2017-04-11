@@ -8,9 +8,9 @@ namespace BattleShipsLibrary.Fields
 {
     public class ShipDestroyField : IField
     {
-        public void MakeField()
+        public string MakeField()
         {
-            Console.Write("X");
+            return "X";
         }
     }
 }

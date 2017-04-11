@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BattleShipsLibrary.Fields;
 using BattleShipsLibrary.Utils;
 using BattleShipsLibrary.Mappers;
+using BattleShipsLibrary.Helpers;
 
 namespace BattleShipsLibrary.Makers
 {
@@ -47,25 +48,25 @@ namespace BattleShipsLibrary.Makers
                         if (i == 0)
                         {
                             if (j == Height - 1)
-                                area.BattleFields[i, j] = new BattleField(new BoundField("  "));
+                                area.BattleFields[i, j] = new BattleField(new BoundField(SymbolsContent.BoundFieldFirstElement));
                             else
                                 area.BattleFields[i, j] = new BattleField(new BoundField(Coordinates.MapToChar(j)));
                         }                         
                         else if (j == 0)
                         {
                             if (i == Width - 1)
-                                area.BattleFields[i, j] = new BattleField(new BoundField("  "));
+                                area.BattleFields[i, j] = new BattleField(new BoundField(SymbolsContent.BoundFieldFirstElement));
                             else
                                 area.BattleFields[i, j] = new BattleField(new BoundField(Coordinates.MapIntToStringFormat(i)));
                         }                         
                         else if (j == Height - 1)
-                            area.BattleFields[i, j] = new BattleField(new BoundField("|"));
+                            area.BattleFields[i, j] = new BattleField(new BoundField(SymbolsContent.BoundFieldLastElement));
                         else
-                            area.BattleFields[i, j] = new BattleField(new BoundField("-"));
+                            area.BattleFields[i, j] = new BattleField(new BoundField(SymbolsContent.BoundFieldDownElement));
                     }
                     else
                     {
-                        area.BattleFields[i, j] = new BattleField(new EmptyField());
+                        area.BattleFields[i, j] = new BattleField(new EmptyField(SymbolsContent.EmptyField));
                     }
                 }
             }

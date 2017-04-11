@@ -115,7 +115,7 @@ namespace BattleShipsLibrary.Makers
         {
             foreach (Point p in pointsToDelete)
             {
-                area.BattleFields[p.X, p.Y] = new BattleField(new EmptyField());
+                area.BattleFields[p.X, p.Y] = new BattleField(new EmptyField(SymbolsContent.EmptyField));
             }
         }
 
